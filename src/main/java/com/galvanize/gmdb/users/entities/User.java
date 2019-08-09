@@ -1,5 +1,7 @@
 package com.galvanize.gmdb.users.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -11,6 +13,7 @@ public class User {
     private Long id;
     private String email;
     private String password;
+    @JsonIgnore
     private String repeatPassword;
     private String screenName;
 
