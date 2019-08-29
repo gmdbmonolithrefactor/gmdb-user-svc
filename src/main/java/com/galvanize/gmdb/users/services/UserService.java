@@ -2,6 +2,7 @@ package com.galvanize.gmdb.users.services;
 
 import com.galvanize.gmdb.users.entities.User;
 import com.galvanize.gmdb.users.repositories.UserRepository;
+import com.galvanize.gmdb.users.rest.AuthRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,8 +12,13 @@ import java.util.Optional;
 
 @Service
 public class UserService {
+
+    private UserRepository repository;
+
     @Autowired
-    UserRepository repository;
+    public UserService(UserRepository repository) {
+        this.repository = repository;
+    }
 
     public User save(User user){
         return repository.save(user);
@@ -25,6 +31,10 @@ public class UserService {
 
     public User getUser(String email, String password){
         return repository.findUserByEmailAndPassword(email, password);
+    }
+
+    public User getUser(AuthRequest request){
+        return getUser(request.getUsername(), request.getPassword());
     }
 
     public List<User> getAllUsers() {

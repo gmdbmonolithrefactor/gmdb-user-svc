@@ -1,12 +1,16 @@
 package com.galvanize.gmdb.users.controllers;
 
 import com.galvanize.gmdb.users.entities.User;
+import com.galvanize.gmdb.users.rest.AuthRequest;
 import com.galvanize.gmdb.users.rest.UpdatePasswordRequest;
 import com.galvanize.gmdb.users.services.UserService;
+import com.netflix.ribbon.proxy.annotation.Http;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @RestController
@@ -29,9 +33,18 @@ public class UserController {
     public User getUserById(@PathVariable Long userid) {
         return service.getUser(userid);
     }
-    @GetMapping("/")
+
+    @GetMapping("")
     public User getUser(@RequestParam(name = "email") String email, @RequestParam(name = "pwd") String password){
         return service.getUser(email, password);
+    }
+
+    @PostMapping("/auth")
+    public boolean authentic(@RequestBody AuthRequest request, HttpServletResponse response){
+        User user = service.getUser(request);
+        if (user == null) response.setStatus(HttpStatus.UNAUTHORIZED.value());
+        else response.setStatus(HttpStatus.OK.value());
+        return user != null;
     }
 
     @PostMapping("")

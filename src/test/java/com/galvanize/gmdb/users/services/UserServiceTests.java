@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.transaction.Transactional;
@@ -16,6 +17,7 @@ import static org.junit.Assert.*;
 
 @SpringBootTest@Transactional
 @RunWith(SpringRunner.class)
+@TestPropertySource(locations="classpath:test.properties")
 public class UserServiceTests {
 
     @Autowired
@@ -30,27 +32,27 @@ public class UserServiceTests {
     }
 
     @Test
-    public void save() throws Exception{
+    public void save(){
         User user = new User("anotheruser@email.com", "password", "anotherusername");
         service.save(user);
         assertNotNull(user.getId());
     }
 
     @Test
-    public void getUserByEmailAndPassword() throws Exception{
+    public void getUserByEmailAndPassword(){
         User user = service.getUser(testUser.getEmail(), testUser.getPassword());
         assertNotNull(user.getId());
         assertEquals(testUser.getId(), user.getId());
     }
 
     @Test
-    public void getUserByEmailAndWrongPassword() throws Exception {
+    public void getUserByEmailAndWrongPassword(){
         User user = service.getUser(testUser.getEmail(), testUser.getPassword()+"xxx");
-        assertTrue(user == null);
+        assertNull(user);
     }
 
     @Test
-    public void getAllUsers() throws Exception {
+    public void getAllUsers(){
         for (int i = 0; i < 10; i++) {
             service.save(new User("User"+i+"@gmail.com", "password", "username"+i));
         }
@@ -60,7 +62,7 @@ public class UserServiceTests {
     }
 
     @Test
-    public void updateUser() throws Exception {
+    public void updateUser(){
         String oldScreenName = testUser.getScreenName();
         testUser.setScreenName(oldScreenName+"123");
         service.save(testUser);
@@ -69,7 +71,7 @@ public class UserServiceTests {
     }
 
     @Test
-    public void updatePassword() throws Exception {
+    public void updatePassword() {
         String newPassword = "newPassword";
         service.updatePassword(testUser.getId(), testUser.getPassword(), "newPassword");
         User user = service.getUser(testUser.getEmail(), newPassword);
@@ -78,14 +80,14 @@ public class UserServiceTests {
     }
 
     @Test
-    public void getUserById() throws Exception {
+    public void getUserById(){
         User user = service.getUser(testUser.getId());
         assertNotNull(user);
         assertEquals(testUser.getId(), user.getId());
     }
 
     @Test
-    public void getUserById_badid() throws Exception {
+    public void getUserById_badid() {
         User user = service.getUser(99999999l);
         assertNull(user);
     }

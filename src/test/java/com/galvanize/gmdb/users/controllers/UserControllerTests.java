@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
@@ -25,6 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest @Transactional
 @AutoConfigureMockMvc
+@TestPropertySource(locations="classpath:test.properties")
 public class UserControllerTests {
     @Autowired
     UserService service;
@@ -46,7 +48,7 @@ public class UserControllerTests {
     public void authenticatePass() throws Exception{
         String json = String.format("{ \"username\": \"%s\", \"password\": \"%s\" }",
                 testUser.getEmail(), testUser.getPassword());
-        MockHttpServletRequestBuilder request = post(BASE_URI)
+        MockHttpServletRequestBuilder request = post(BASE_URI+"/auth")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json);
 
@@ -58,12 +60,13 @@ public class UserControllerTests {
     public void authenticateFail() throws Exception{
         String json = String.format("{ \"username\": \"%s\", \"password\": \"%s\" }",
                 testUser.getEmail(), testUser.getPassword()+"bad");
-        MockHttpServletRequestBuilder request = post(BASE_URI)
+        MockHttpServletRequestBuilder request = post(BASE_URI+"/auth")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json);
 
         mvc.perform(request)
-                .andExpect(status().isNoContent());
+                .andExpect(status().isUnauthorized());
+
     }
 
     @Test
