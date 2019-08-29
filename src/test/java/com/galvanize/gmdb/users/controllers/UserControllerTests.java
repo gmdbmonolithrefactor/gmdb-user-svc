@@ -32,14 +32,38 @@ public class UserControllerTests {
     @Autowired
     MockMvc mvc;
 
-    String BASE_URI="/gmdb/api/users";
-    User testUser;
+    private String BASE_URI="/gmdb/api/users";
+    private User testUser;
 
     @Before
     public void setup() {
         testUser  = new User("me@email.com", "password", "screename");
         service.save(testUser);
         assertNotNull(testUser.getId());
+    }
+
+    @Test
+    public void authenticatePass() throws Exception{
+        String json = String.format("{ \"username\": \"%s\", \"password\": \"%s\" }",
+                testUser.getEmail(), testUser.getPassword());
+        MockHttpServletRequestBuilder request = post(BASE_URI)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json);
+
+        mvc.perform(request)
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void authenticateFail() throws Exception{
+        String json = String.format("{ \"username\": \"%s\", \"password\": \"%s\" }",
+                testUser.getEmail(), testUser.getPassword()+"bad");
+        MockHttpServletRequestBuilder request = post(BASE_URI)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json);
+
+        mvc.perform(request)
+                .andExpect(status().isNoContent());
     }
 
     @Test

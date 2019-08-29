@@ -13,8 +13,12 @@ import java.util.List;
 @RequestMapping("/gmdb/api/users")
 public class UserController {
 
+    private UserService service;
+
     @Autowired
-    UserService service;
+    public UserController(UserService service) {
+        this.service = service;
+    }
 
     @GetMapping("/all")
     public List<User> getAllUsers(){
@@ -25,7 +29,7 @@ public class UserController {
     public User getUserById(@PathVariable Long userid) {
         return service.getUser(userid);
     }
-    @GetMapping("")
+    @GetMapping("/")
     public User getUser(@RequestParam(name = "email") String email, @RequestParam(name = "pwd") String password){
         return service.getUser(email, password);
     }
