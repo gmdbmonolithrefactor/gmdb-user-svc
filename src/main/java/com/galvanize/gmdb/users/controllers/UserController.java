@@ -13,6 +13,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/gmdb/api/users")
 public class UserController {
