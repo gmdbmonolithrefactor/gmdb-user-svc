@@ -34,7 +34,7 @@ public class UserControllerTests {
     @Autowired
     MockMvc mvc;
 
-    private String BASE_URI="/gmdb/api/users";
+    private String BASE_URI="/gmdb/api/user";
     private User testUser;
 
     @Before

@@ -13,7 +13,7 @@ import java.util.List;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/gmdb/api/users")
+@RequestMapping("/gmdb/api/user")
 public class UserController {
 
     private UserService service;
