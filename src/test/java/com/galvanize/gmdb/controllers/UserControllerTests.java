@@ -68,11 +68,11 @@ public class UserControllerTests {
 
     }
 
-    @Test
-    public void findAllUsers() throws Exception {
-        mvc.perform(get(BASE_URI+"/all"))
-                .andExpect(MockMvcResultMatchers.status().isOk());
-    }
+//    @Test // TODO: NEED SECURITY FOR THIS ENDPOINT
+//    public void findAllUsers() throws Exception {
+//        mvc.perform(get(BASE_URI+"/all"))
+//                .andExpect(MockMvcResultMatchers.status().isOk());
+//    }
 
     @Test
     public void findUserById() throws Exception {

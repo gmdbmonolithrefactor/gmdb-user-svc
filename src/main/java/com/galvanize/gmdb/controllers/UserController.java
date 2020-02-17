@@ -23,17 +23,17 @@ public class UserController {
         this.service = service;
     }
 
-    @GetMapping("/all")
-    public List<User> getAllUsers(){
-        return service.getAllUsers();
-    }
+//    @GetMapping
+//    public List<User> getAllUsers(){
+//        return service.getAllUsers();
+//    }
 
     @GetMapping("/{userid}")
     public User getUserById(@PathVariable Long userid) {
         return service.getUser(userid);
     }
 
-    @GetMapping("")
+    @GetMapping
     public User getUser(@RequestParam(name = "email") String email, @RequestParam(name = "pwd") String password){
         return service.getUser(email, password);
     }
@@ -46,12 +46,12 @@ public class UserController {
         return user != null;
     }
 
-    @PostMapping("")
+    @PostMapping
     public User createUser(@RequestBody User user){
         return service.save(user);
     }
 
-    @PutMapping("")
+    @PutMapping
     public User updateUser(@RequestBody UpdatePasswordRequest updatePassword){
         return service.updatePassword(updatePassword.getId(), updatePassword.getOldPassword(), updatePassword.getNewPassword());
     }
