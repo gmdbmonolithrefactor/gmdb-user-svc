@@ -1,4 +1,4 @@
-package com.galvanize.gmdb.users.entities;
+package com.galvanize.gmdb.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

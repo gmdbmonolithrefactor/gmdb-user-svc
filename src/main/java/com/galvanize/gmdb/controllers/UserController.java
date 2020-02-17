@@ -1,9 +1,9 @@
-package com.galvanize.gmdb.users.controllers;
+package com.galvanize.gmdb.controllers;
 
-import com.galvanize.gmdb.users.entities.User;
-import com.galvanize.gmdb.users.rest.AuthRequest;
-import com.galvanize.gmdb.users.rest.UpdatePasswordRequest;
-import com.galvanize.gmdb.users.services.UserService;
+import com.galvanize.gmdb.entities.User;
+import com.galvanize.gmdb.rest.AuthRequest;
+import com.galvanize.gmdb.rest.UpdatePasswordRequest;
+import com.galvanize.gmdb.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

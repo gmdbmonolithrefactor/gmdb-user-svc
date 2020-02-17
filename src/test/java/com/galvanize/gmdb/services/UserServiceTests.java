@@ -1,6 +1,6 @@
-package com.galvanize.gmdb.users.services;
+package com.galvanize.gmdb.services;
 
-import com.galvanize.gmdb.users.entities.User;
+import com.galvanize.gmdb.entities.User;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,7 +10,6 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.transaction.Transactional;
-
 import java.util.List;
 
 import static org.junit.Assert.*;

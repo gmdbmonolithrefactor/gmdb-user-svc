@@ -1,4 +1,4 @@
-package com.galvanize.gmdb.users.rest;
+package com.galvanize.gmdb.rest;
 
 public class UpdatePasswordRequest {
     private long id;

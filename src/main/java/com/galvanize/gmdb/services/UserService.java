@@ -1,12 +1,11 @@
-package com.galvanize.gmdb.users.services;
+package com.galvanize.gmdb.services;
 
-import com.galvanize.gmdb.users.entities.User;
-import com.galvanize.gmdb.users.repositories.UserRepository;
-import com.galvanize.gmdb.users.rest.AuthRequest;
+import com.galvanize.gmdb.entities.User;
+import com.galvanize.gmdb.repositories.UserRepository;
+import com.galvanize.gmdb.rest.AuthRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 

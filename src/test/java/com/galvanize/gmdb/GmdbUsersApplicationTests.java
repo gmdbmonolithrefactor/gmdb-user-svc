@@ -1,4 +1,4 @@
-package com.galvanize.gmdb.users;
+package com.galvanize.gmdb;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

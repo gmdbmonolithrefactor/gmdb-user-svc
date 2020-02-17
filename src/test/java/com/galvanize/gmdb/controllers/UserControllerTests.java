@@ -1,7 +1,7 @@
-package com.galvanize.gmdb.users.controllers;
+package com.galvanize.gmdb.controllers;
 
-import com.galvanize.gmdb.users.entities.User;
-import com.galvanize.gmdb.users.services.UserService;
+import com.galvanize.gmdb.entities.User;
+import com.galvanize.gmdb.services.UserService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,6 +13,7 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import javax.transaction.Transactional;
 
@@ -20,8 +21,6 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertNotNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest @Transactional
@@ -53,7 +52,7 @@ public class UserControllerTests {
                 .content(json);
 
         mvc.perform(request)
-                .andExpect(status().isOk());
+                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @Test
@@ -65,28 +64,28 @@ public class UserControllerTests {
                 .content(json);
 
         mvc.perform(request)
-                .andExpect(status().isUnauthorized());
+                .andExpect(MockMvcResultMatchers.status().isUnauthorized());
 
     }
 
     @Test
     public void findAllUsers() throws Exception {
         mvc.perform(get(BASE_URI+"/all"))
-                .andExpect(status().isOk());
+                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @Test
     public void findUserById() throws Exception {
         mvc.perform(get(BASE_URI+"/"+testUser.getId().toString()))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", is(testUser.getId().intValue())));
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id", is(testUser.getId().intValue())));
     }
 
     @Test
     public void getUserByEmailAndPassword() throws Exception {
         mvc.perform(get(BASE_URI).param("email", testUser.getEmail()).param("pwd", testUser.getPassword()))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", is(testUser.getId().intValue())));
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id", is(testUser.getId().intValue())));
     }
 
     @Test
@@ -97,8 +96,8 @@ public class UserControllerTests {
                 .content(json);
 
         mvc.perform(request)
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").exists())
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists())
                 .andReturn();
     }
 
@@ -110,8 +109,8 @@ public class UserControllerTests {
                 .content(json);
 
         mvc.perform(request)
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", is(testUser.getId().intValue())))
-                .andExpect(jsonPath("$.screenName", is("newScreenName")));
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id", is(testUser.getId().intValue())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.screenName", is("newScreenName")));
     }
 }
