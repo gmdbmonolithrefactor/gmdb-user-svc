@@ -1,22 +1,30 @@
-# gmdb-users-svc
+# gmdb-user-svc
 
 ## Environment Variables required - Replace with actual data
-* EUREKA_HOST=dev1.robwing.com:8761
-* DATABASE_HOST=dev1.robwing.com:6603
-* DB_USERNAME=gmdb_app
-* DB_PASSWORD=gmdb_app
+* EUREKA_CLIENT_ENABLED=false # Default
+* EUREKA_HOST=gmdb-discovery:8761
+* DB_HOST_AND_PORT=localhost:3306 # Default
+* DB_USER=gmdb #Default
+* DB_PWD=someGoodSecret
 
-## To build docker image
+## Endpoint Examples
+
+## Docker Instructions
 ```
-docker build -t gmdb/users .
+$ docker build -t gmdb/user .
+
+$ docker run -d -p [localport]:8080 \
+        -e EUREKA_CLIENT_ENABLED=true \
+        -e EUREKA_HOST=gmdb-discovery:8761 \ 
+        -e DB_HOST_AND_PORT=gmdb-devdb:3306 \
+        -e DB_USER=gmdb \
+        -e DB_PWD=someGoodSecret \
+        --network gmdb-bridge \
+        gmdb/user
 ```
 
-## To run the docker container
-```
-docker run -d -p 1081:8081 --name gmdb-users gmdb/users \
-      -e EUREKA_HOST=dev1.robwing.com:8761 \
-      -e DATABASE_HOST=dev1.robwing.com:6603 \
-      -e DB_USERNAME=gmdb_app \
-      -e DB_PASSWORD=gmdb_app
-      
-```
+## PCF Instructions
+1. Build project as normal `$ ./gradlew clean build`
+1. Push from root directory `$ cf push`
+
+NOTE: Requires a mysql database service named gmdb-devdb (ex: ClearDb MySQL Database free-spark DB).  Name of service can be changed on command line, or in the included manifest.yml. 

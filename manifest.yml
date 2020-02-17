@@ -1,0 +1,8 @@
+---
+applications:
+  - name: gmdb-user-svc
+    buildpacks:
+      - java_buildpack
+    path: build/libs/gmdb-user-svc-0.0.1-SNAPSHOT.jar
+    services:
+      - gmdb-devdb
