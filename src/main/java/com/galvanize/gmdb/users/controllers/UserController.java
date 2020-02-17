@@ -4,11 +4,9 @@ import com.galvanize.gmdb.users.entities.User;
 import com.galvanize.gmdb.users.rest.AuthRequest;
 import com.galvanize.gmdb.users.rest.UpdatePasswordRequest;
 import com.galvanize.gmdb.users.services.UserService;
-import com.netflix.ribbon.proxy.annotation.Http;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpClientErrorException;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
